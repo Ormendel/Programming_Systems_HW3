@@ -1,34 +1,57 @@
 #include <stdio.h>
-
+#define size_arr 50
 void shift_element(int* arr,int i)
 {
-	if(i<0)
-		printf("Error: number of values to move right = %d (negative) .\nThe array remained the same.\n",i);
-	else if(i==0)
-		printf("The array remained the same.\n");	
-	else// i is positive
-	{
-		int counter;
+		int counter=1;
 		int current=*arr,save_next;
-		int jumps=1;
-		for(counter=1;counter<=i;counter++)//Count shifting to the right side of the array
+		for(;counter<=i;counter++)//Count shifting to the right side of the array
 		{
+			
 			save_next=*(arr+1);
 			*(arr+1)=current;
 			current=save_next;	
-			arr++;					
+			arr++;
 		}
-		printf("Finished\n");
+}
+void insertion_sort(int*arr,int len)
+{
+	int i,key,j;
+	for(i=1;i<len;i++)
+	{
+		int count_shifts=0;
+		key=*(arr+i);
+		j=i-1;
+		while(j>=0&&*(arr+j)>=key)
+		{
+			count_shifts++;
+			j--;
+		}	
+		shift_element(arr+j+1,count_shifts);
+		*(arr+j+1)=key;
 	}
+	
+}
+
+void PrintArr(int*arr,int len)
+{
+	int i;
+	for(i=0;i<len-1;i++)
+	{
+		printf("%d,",*(arr+i));
+	}
+	printf("%d",*(arr+i));
 }
 int main()
 {
 	int i;
-	int a[]={1,5,6,7,4};
-	int* pt=&a[3];
-	shift_element(pt,1);
-	for(i=0;i<5;i++)
-		printf("%d ",a[i]);
+	int arr[size_arr];
+	printf("Please enter %d values -->\n",size_arr);
+	for(i=0;i<size_arr;i++)
+	{
+		scanf("%d",arr+i);
+	}
+	insertion_sort(arr,size_arr);
+	PrintArr(arr,size_arr);
 	printf("\n");
 	return 0;
 }
