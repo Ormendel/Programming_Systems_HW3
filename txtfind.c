@@ -13,7 +13,7 @@ int getchars(char c[])
 	return countChars;
 }
 
-//returns number of lines in a text
+//returns number of characters in total in the whole string
 int getlines(char s[])
 {
 	int lines = 1;
@@ -105,7 +105,7 @@ int similar(char* s, char* t, int n)
 
 //Printing specific line
 void printline(char line[], char* str)
-{
+{/*******REUVEN FIX*******/
 	int i = 0;
 	int j=0;
 	int h = 0;	
@@ -164,15 +164,22 @@ void print_lines(char* str)
 
 //prints every word that "similar" to the given word
 void print_similar_words(char* str)
-{
+{/*******REUVEN FIX*******/
 	if ( stdin != NULL )
 	{
- 		char word[WORD]; 
+ 		char word[WORD];
+		char*s;
 		while (fscanf(stdin, " %s",word) == 1)
    		{
-			if(similar(word,str,1) == 1||similar(word,str,0) == 1)
+			int n=getchars(fscanf(stdin, " %s",word));
+			int i;
+			for(i=0;i<n;i++)
 			{
-				printf("%s\n",word);
+				if(similar(word,str,i)
+				{
+					printf("%s\n",word);
+					break;
+				}
 			}
 			word[0] = '\0';
     		}
