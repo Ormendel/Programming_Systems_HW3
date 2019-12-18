@@ -1,5 +1,4 @@
-#ifndef findtxt_h
-#define findtxt_h
+
 
 int getchars(char c[]);
 int getlines(char s[]);
@@ -10,4 +9,3 @@ void print_lines(char* str);
 void print_similar_words(char* str);
 
 
-#endif

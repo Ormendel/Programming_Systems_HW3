@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "isort.h"
+#define size_arr 50
 
 void shift_element(int* arr,int i)
 {
@@ -41,4 +42,19 @@ void PrintArr(int*arr,int len)
 		printf("%d,",*(arr+i));
 	}
 	printf("%d",*(arr+i));
+}
+
+int main()
+{
+	int i;
+	int arr[size_arr];
+	printf("Please enter %d values -->\n",size_arr);
+	for(i=0;i<size_arr;i++)
+	{
+		scanf("%d",arr+i);
+	}
+	insertion_sort(arr,size_arr);
+	PrintArr(arr,size_arr);
+	printf("\n");
+	return 0;
 }
