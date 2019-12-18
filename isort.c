@@ -42,12 +42,13 @@ void PrintArr(int*arr,int len)
 		printf("%d,",*(arr+i));
 	}
 	printf("%d",*(arr+i));
+	printf("\n");
 }
 
-int main()
+int main(int argc, char **argv)
 {
 	int i;
-	int arr[size_arr];
+	int arr[size_arr]={0};
 	printf("Please enter %d values -->\n",size_arr);
 	for(i=0;i<size_arr;i++)
 	{
@@ -55,6 +56,7 @@ int main()
 	}
 	insertion_sort(arr,size_arr);
 	PrintArr(arr,size_arr);
-	printf("\n");
+	printf("all numbers are now sorted!\n\n");
+
 	return 0;
 }

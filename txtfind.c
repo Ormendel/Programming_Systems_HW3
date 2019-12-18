@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "findtxt.h"
+#include "txtfind.h"
 #define LINE 256
 #define WORD 30
 
@@ -10,7 +10,7 @@ int getchars(char c[])
 	int i;
 	for (i = 0; c[i] != '\0';i++)
 		countChars++;
-	return chars;
+	return countChars;
 }
 
 //returns number of lines in a text
@@ -181,5 +181,25 @@ void print_similar_words(char* str)
 	else
 	{
    		//file doesn't exist or empty
+	}
+}
+
+int main(int argc, char **argv)
+{
+	char choice;
+	char str[WORD];
+	fscanf(stdin, "%s",str);
+	scanf(" %c", &choice);
+	
+	switch(choice)
+	{
+		case 'a':
+			printf("all lines that contains the word: %s, will be printed..\n",str);
+			print_lines(str);
+			break;
+		case 'b':
+			printf("all words that similar to the word: %s will be printed..",str);
+			print_similar_words(str);
+			break;
 	}
 }
