@@ -105,7 +105,7 @@ int similar(char* s, char* t, int n)
 
 //Printing specific line
 void printline(char line[], char* str)
-{/*******REUVEN FIX*******/
+{
 	int i = 0;
 	int j=0;
 	int h = 0;	
@@ -164,7 +164,7 @@ void print_lines(char* str)
 
 //prints every word that "similar" to the given word
 void print_similar_words(char* str)
-{/*******REUVEN FIX*******/
+{
 	if ( stdin != NULL )
 	{
  		char word[WORD];
