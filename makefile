@@ -1,45 +1,37 @@
-CC=gcc 
+CC=gcc
 AR=ar
-MAINOBJECTS1=isort_main.o
-MAINOBJECTS2=txtfind_main.o
-LIBOBJECTS1=isort.o isort.h 
-LIBOBJECTS2=txtfind.o txtfind.h
-LIBa1=libisort_.a 
-LIBa2=libtxtfind_.a
-LIBso1=libisort.so 
-LIBso2=libtxtfind.so
-FLAGS= -Wall -g 
+OBJECT_TXT_FIND=txtfind.o 
+OBJECT_INSERTION_SORT=isort.o
+FLAGS = -Wall -g
 
-all: isortd isorts txtfindd txtfinds isort isort_maind  txtfind txtfind_maind
+all: main
 
-isort: $(MAINOBJECTS1) $(LIBa1)
-	$(CC) $(FLAGS) -o isort $(MAINOBJECTS1) $(LIBa1) 
-isort_maind: $(MAINOBJECTS1)
-	$(CC) $(FLAGS) -o isort_maind $(MAINOBJECTS1) ./$(LIBso1)
-txtfind: $(MAINOBJECTS2) $(LIBa2)
-	$(CC) $(FLAGS) -o txtfind $(MAINOBJECTS2) $(LIBa2) 
-txtfind_maind: $(MAINOBJECTS2)
-	$(CC) $(FLAGS) -o txtfind_maind $(MAINOBJECTS2) ./$(LIBso2)
+main: txtfindmain isortmain
 
-isortd: $(LIBOBJECTS1)
-	$(CC) -shared -o $(LIBso1) $(LIBOBJECTS1)
-isorts: $(LIBOBJECTS1)
-	$(AR) -rcs $(LIBa1) $(LIBOBJECTS1)
-txtfindd: $(LIBOBJECTS2)
-	$(CC) -shared -o $(LIBso2) $(LIBOBJECTS2)
-txtfinds: $(LIBOBJECTS2)
-	$(AR) -rcs $(LIBa2) $(LIBOBJECTS2)
+txtfindmain: $(OBJECT_TXT_FIND) txtfind
+	     $(CC) $(FLAGS) -o txtfind $(OBJECT_TXT_FIND) libtxtfind.a 
 
-isort_main.o: isort_main.c isort.h 
-	$(CC) $(FLAGS) -c isort_main.c
-txtfind_main.o: txtfind_main.c txtfind.h
-	$(CC) $(FLAGS) -c txtfind_main.c
-isort.o: isort.c
-	$(CC) -fPIC $(FLAGS) -c isort.c
+isortmain: $(OBJECT_INSERTION_SORT) isort
+	     $(CC) $(FLAGS) -o isort $(OBJECT_INSERTION_SORT) libisort.a 
+
+
+txtfind: libtxtfind.a
+libtxtfind.a: $(OBJECT_TXT_FIND)
+	 $(AR) -rcs libtxtfind.a $(OBJECT_TXT_FIND) 
+
+
+isort: libisort.a
+libisort.a: $(OBJECT_INSERTION_SORT)
+	 $(AR) -rcs libisort.a $(OBJECT_INSERTION_SORT) 
+
+
 txtfind.o: txtfind.c
-	$(CC) -fPIC $(FLAGS) -c txtfind.c
+	 $(CC) $(FLAGS) -c -fPIC txtfind.c
 
-.PHONY: clean all isortd isorts txtfindd fintxts
+isort.o: isort.c
+	 $(CC) $(FLAGS) -c -fPIC isort.c
 
+.PHONY: 
+	all clean txtfind main isort
 clean: 
-	rm -f *.o isort_mains isort_maind txtfind_mains txtfind_maind $(LIBso1) $(LIBa1) $(LIBso2) $(LIBa2)
+	 rm -rf *.o *.a main 
